@@ -1,0 +1,76 @@
+@import '../../variables.scss';
+
+.authLayout {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  background-color: $backgroundColor;
+  position: relative;
+}
+
+.header {
+  position: absolute;
+  font-size: 3em;
+  font-weight: 600;
+  top: 110px;
+  color: $primaryColor;
+}
+
+.net {
+  color: $secondaryColor;
+}
+
+.authImageContainer {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.authImage {
+  height: 700px;
+}
+
+.authFormContainer {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.authForm {
+  border: 1px solid #959595;
+  border-radius: 12px;
+  padding: 40px 24px;
+}
+
+.authHeader {
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-bottom: 40px;
+}
+
+.welcome {
+  font-size: 1.66em;
+  font-weight: 600;
+  text-align: center;
+  color: $secondaryFontColor;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.noAccount {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.authButton {
+  color: $errorColor;
+  cursor: pointer;
+}
+
+.authButton:hover {
+  text-decoration: underline;
+}

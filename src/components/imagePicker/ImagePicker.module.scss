@@ -1,0 +1,61 @@
+.imagePickerWrapper {
+  width: 160px;
+  text-align: center;
+}
+
+.imagePickerWrapperExpanded {
+  @extend .imagePickerWrapper;
+  width: 100%;
+}
+
+.imagePicker {
+  height: 160px;
+  width: 160px;
+  position: relative;
+  border: 1px solid #bfbfbf;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 200ms;
+}
+
+.imagePickerExpanded {
+  @extend .imagePicker;
+  width: 100%;
+}
+
+.imagePicker:hover {
+  background-color: #f0f0f0;
+}
+
+.imagePickerInput {
+  position: absolute;
+  opacity: 0;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.icon {
+  pointer-events: none;
+  left: 0;
+  top: 0;
+}
+
+.label {
+  margin-top: 6px;
+  pointer-events: none;
+}
+
+.image {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  border-radius: 12px;
+  top: 0;
+  object-fit: cover;
+}

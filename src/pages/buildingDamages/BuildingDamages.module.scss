@@ -1,0 +1,59 @@
+@import '../../variables.scss';
+
+.buildingDamages {
+  display: flex;
+}
+
+.section {
+  width: 50%;
+}
+
+.leftSection {
+  @extend .section;
+  display: flex;
+  justify-content: center;
+}
+
+.imagePickerContainer {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+.rightSection {
+  @extend .section;
+}
+
+.assessForm {
+  width: 400px;
+}
+
+.assessedHeader {
+  font-size: 1.5em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.checkedCard {
+  border: 1px solid #bfbfbf;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.detailsContainer {
+  flex-grow: 1;
+}
+
+.type {
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.percentage {
+  font-size: 2.2em;
+  color: $secondaryColor;
+  font-weight: 700;
+}

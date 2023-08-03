@@ -1,0 +1,22 @@
+@import '../../variables.scss';
+
+.selectWrapper {
+  width: 400px;
+  margin-top: 16px;
+}
+
+.label {
+  margin-bottom: 2px;
+}
+
+.select {
+  outline: none;
+  border: 1px solid #6f6f6f;
+  font-family: $fontFamily;
+  background-color: transparent;
+  border-radius: 6px;
+  font-size: 1.06em;
+  padding: 6px 10px;
+  color: $fontColor;
+  width: 100%;
+}

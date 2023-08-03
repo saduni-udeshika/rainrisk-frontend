@@ -1,0 +1,47 @@
+@import '../../variables.scss';
+
+.navbar {
+  background-color: $primaryColor;
+  height: $navHeight;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  color: $backgroundColor;
+  box-shadow: 0 2px 4px #000;
+  z-index: 100;
+  width: 100%;
+  position: absolute;
+}
+
+.logo {
+  font-size: 1.4em;
+  font-weight: 600;
+  flex-grow: 1;
+  letter-spacing: 1px;
+}
+
+.logoNet {
+  margin-left: 6px;
+  color: $secondaryColor;
+}
+
+.navLink {
+  font-size: 1.06em;
+  cursor: pointer;
+  margin-left: 40px;
+  transition-duration: 200ms;
+}
+
+.navLink:hover {
+  text-shadow: 0 0 2px $backgroundColor;
+}
+
+.logout {
+  margin-left: 40px;
+  cursor: pointer;
+}
+
+.logout:hover {
+  text-decoration: underline;
+}
