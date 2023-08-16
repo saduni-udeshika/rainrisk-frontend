@@ -2,6 +2,8 @@
 
 .buildingDamages {
   display: flex;
+  position: relative;
+  height: calc(100% - #{$navHeight});
 }
 
 .section {
@@ -56,4 +58,37 @@
   font-size: 2.2em;
   color: $secondaryColor;
   font-weight: 700;
+}
+
+.overlayContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  height: fit-content;
+  width: 440px;
+  box-shadow: 0 0 8px 4px #0000004d;
+  background-color: $backgroundColor;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.percentageHeader {
+  font-size: 1.4em;
+}
+
+.overlayPercentage {
+  margin-top: 20px;
+  font-size: 2.6em;
+  font-weight: 700;
+  color: $secondaryColor;
 }

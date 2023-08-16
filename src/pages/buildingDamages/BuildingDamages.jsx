@@ -1,11 +1,39 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './BuildingDamages.module.scss'
-import { Button, ImagePicker, Input, Select } from '../../components'
+import { Button, ImagePicker, Input, Progress, Select } from '../../components'
+import { useQuery } from '../../hooks'
 import { getImageFromFile } from '../../utils'
+import { calculateDamagePercentage, getAssessed } from '../../services/damage.assessment.service'
+import moment from 'moment/moment'
 
 export const BuildingDamages = () => {
   const [preDisasterImage, setPreDisasterImage] = useState()
   const [postDisasterImage, setPostDisasterImage] = useState()
+  const [selectedDisasterType, setSelectedDisasterType] = useState('landslides')
+  const [location, setLocation] = useState('')
+  const [date, setDate] = useState('')
+  const { isLoading: isAssessDamageLoading, call: callAssessDamage } =
+    useQuery(calculateDamagePercentage)
+  const {
+    isLoading: isLoadingAssessed,
+    call: callGetAssessed,
+    response: assessedResponse,
+  } = useQuery(getAssessed)
+  const [responsePercentage, setResponsePercentage] = useState()
+
+  const handleDisasterTypeChange = (e) => {
+    setSelectedDisasterType(e.target.value)
+  }
+
+  useEffect(() => {
+    callGetAssessed()
+  }, [])
+
+  const disasterOptions = [
+    { value: 'landslides', text: 'Landslides' },
+    { value: 'earthquake', text: 'Earthquake' },
+    { value: 'flood', text: 'Flood' },
+  ]
 
   const onSelectPreDisaster = async (e, type) => {
     if (e.target.files === null || e.target.files.length === 0) return
@@ -19,6 +47,36 @@ export const BuildingDamages = () => {
           data: visibleUrl,
           file: e.target.files[0],
         })
+  }
+
+  const resetInputs = () => {
+    setPreDisasterImage(undefined)
+    setPostDisasterImage(undefined)
+    setSelectedDisasterType('landslide')
+    setLocation('')
+    setDate('')
+  }
+
+  const handleAssessDamageClick = async () => {
+    if (!preDisasterImage || !postDisasterImage || !selectedDisasterType || !location || !date) {
+      alert('Please fill in all required fields.')
+      return
+    }
+
+    const { response } = await callAssessDamage(
+      preDisasterImage.file,
+      postDisasterImage.file,
+      selectedDisasterType,
+      location,
+      date,
+    )
+    if (response) {
+      setResponsePercentage(response)
+      resetInputs()
+      await callGetAssessed()
+    } else {
+      alert('An error occurred while calculating the percentage!')
+    }
   }
 
   return (
@@ -39,23 +97,42 @@ export const BuildingDamages = () => {
             />
           </div>
           <div style={{ height: '60px' }} />
-          <Select label="Disaster Type" />
-          <Input label="Location" />
-          <Input type="date" label="Date" />
-          <Button label="Assess Damage" expand />
+          <Select
+            label="Disaster Type"
+            onChange={handleDisasterTypeChange}
+            options={disasterOptions}
+          />
+          <Input label="Location" onChange={(e) => setLocation(e.target.value)} />
+          <Input type="date" label="Date" onChange={(e) => setDate(e.target.value)} />
+          <Button label="Assess Damage" expand onClick={handleAssessDamageClick} />
         </div>
       </div>
       <div className={styles.rightSection}>
         <div className={styles.assessedHeader}>Assessed properties</div>
-        <div className={styles.checkedCard}>
-          <div className={styles.detailsContainer}>
-            <div className={styles.type}>Landslide</div>
-            <div className={styles.location}>Flower road, Nuwara Eliya</div>
-            <div className={styles.date}>02/04/2022</div>
-          </div>
-          <div className={styles.percentage}>78%</div>
-        </div>
+        {assessedResponse &&
+          assessedResponse.reverse().map((data, index) => (
+            <div className={styles.checkedCard} key={index}>
+              <div className={styles.detailsContainer}>
+                <div className={styles.type}>
+                  {disasterOptions.find((e) => e.value === data.disaster_type).text}
+                </div>
+                <div className={styles.location}>{data.location}</div>
+                <div className={styles.date}>{moment(data.date).format('DD/MM/YYYY')}</div>
+              </div>
+              <div className={styles.percentage}>{data.damage_percentage}%</div>
+            </div>
+          ))}
       </div>
+      {responsePercentage && (
+        <div className={styles.overlayContainer} onClick={() => setResponsePercentage(undefined)}>
+          <div className={styles.overlay} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.percentageHeader}>Damage Percentage</div>
+            <div className={styles.overlayPercentage}>{responsePercentage}%</div>
+            <Button label="Close" expand onClick={() => setResponsePercentage(undefined)} />
+          </div>
+        </div>
+      )}
+      <Progress showProgress={[isAssessDamageLoading, isLoadingAssessed]} />
     </div>
   )
 }
