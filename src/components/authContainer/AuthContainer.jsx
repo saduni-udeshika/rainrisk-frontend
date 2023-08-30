@@ -13,7 +13,6 @@ const AuthLayout = ({ onAuth }) => {
   const { isLoading: isSigningUp, call: callSignup } = useQuery(signUp)
   const { isLoading: isLoadingUser, call: callGetUser } = useQuery(getUser)
   const { isLoading: isSigningIn, call: callSignIn } = useQuery(signIn)
-  // const { isLoading: isAssessDamageLoading, call: callAssessDamage, response } = useQuery(getAssessDamage)
 
   const [inputs, setInputs] = useState({
     firstName: '',
