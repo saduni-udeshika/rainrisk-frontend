@@ -1,6 +1,7 @@
 import React from 'react'
 import { BuildingDamages, CheckDamaged, Home } from '../pages'
 import { EnvironmentalFloodDamage } from '../pages/environmentalDamages/EnvironmentalFloodDamage'
+import { EnvironmentalLandslideDamage } from '../pages/environmentalDamages/EnvironmentalLandslideDamage'
 
 export const Routes = [
   {
@@ -19,9 +20,14 @@ export const Routes = [
     component: () => <CheckDamaged />,
   },
   {
-    name: 'Environment Risk',
-    path: '/environment-risk',
+    name: 'Environment Flood Damage',
+    path: '/environment-flood-damage',
     component: () => <EnvironmentalFloodDamage />,
+  },
+  {
+    name: 'Environment Landslide Damage',
+    path: '/environment-landslide-damage',
+    component: () => <EnvironmentalLandslideDamage />,
   },
   {
     name: 'Humanitarian Risk',
