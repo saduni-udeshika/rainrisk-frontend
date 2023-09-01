@@ -12,5 +12,10 @@ export const disasterForecast = async (
     headers: {
       'Content-Type': 'multipart/form-data',
     },
-  })
-}
+  });
+};
+
+export const getDisasterForecasts = async () => {
+  return http.withToken.get('get-disaster-forecasts');
+};
+
