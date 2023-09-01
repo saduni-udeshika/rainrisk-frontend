@@ -2,6 +2,7 @@ import React from 'react'
 import { BuildingDamages, CheckDamaged, Home } from '../pages'
 import { EnvironmentalFloodDamage } from '../pages/environmentalDamages/EnvironmentalFloodDamage'
 import { EnvironmentalLandslideDamage } from '../pages/environmentalDamages/EnvironmentalLandslideDamage'
+import { DisasterForecast } from '../pages/disasterForecast/DisasterForecast'
 
 export const Routes = [
   {
@@ -30,13 +31,13 @@ export const Routes = [
     component: () => <EnvironmentalLandslideDamage />,
   },
   {
+    name: 'Disaster Forecast',
+    path: '/disaster-forecast',
+    component: () => <DisasterForecast />,
+  },
+  {
     name: 'Humanitarian Risk',
     path: '/humanitarian-risk',
     component: () => <div />,
-  },
-  {
-    name: 'Disaster Forecast',
-    path: '/disaster-forecast',
-    component: () => <div />,
-  },
+  }
 ]
