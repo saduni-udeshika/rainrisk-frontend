@@ -1,55 +1,55 @@
-import { Button, Input } from '../../components';
-import styles from './DisasterForecast.scss';
-import { disasterForecast, getDisasterForecasts } from '../../services/disaster.forecast.service';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import { disasterForecast, getDisasterForecasts } from '../../services/disaster.forecast.service'
+import styles from './DisasterForecast.module.scss'
+import { Button, Input } from '../../components'
 
 export const DisasterForecast = () => {
-  const [date, setDate] = useState('');
-  const [location, setLocation] = useState('');
-  const [prediction, setPrediction] = useState('');
-  const [forecasts, setForecasts] = useState([]);
+  const [date, setDate] = useState('')
+  const [location, setLocation] = useState('')
+  const [prediction, setPrediction] = useState('')
+  const [forecasts, setForecasts] = useState([])
 
   useEffect(() => {
-    fetchForecasts();
-  }, []);
+    fetchForecasts()
+  }, [])
 
   const fetchForecasts = async () => {
     try {
-      const response = await getDisasterForecasts();
-      setForecasts(response.data);
+      const response = await getDisasterForecasts()
+      setForecasts(response.data)
     } catch (error) {
-      console.error('Error fetching disaster forecasts:', error);
+      console.error('Error fetching disaster forecasts:', error)
     }
-  };
+  }
 
   const handlePredict = async () => {
     if (location && date) {
       try {
-        const response = await disasterForecast(location, date);
-        setPrediction(response.data);
+        const response = await disasterForecast(location, date)
+        setPrediction(response.data)
 
         // Clear the input fields after successful prediction
-        clearInputs();
+        clearInputs()
       } catch (error) {
-        console.error('Error predicting disaster:', error);
+        console.error('Error predicting disaster:', error)
       }
     }
-  };
+  }
 
   const clearInputs = () => {
-    setDate('');
-    setLocation('');
-    setPrediction('');
-  };
+    setDate('')
+    setLocation('')
+    setPrediction('')
+  }
 
   return (
     <div className={styles.disasterForecast}>
       <div className={styles.leftSection}>
         <div className={styles.assessForm}>
           <div className={styles.assessedHeader}>Disaster Forecast Prediction</div>
-          <input type="text" placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
-          <input type="date" placeholder="Date" value={date} onChange={(e) => setDate(e.target.value)} />
-          <button onClick={handlePredict}>Prediction</button>
+          <Input label="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
+          <Input type="date" label="Date" value={date} onChange={(e) => setDate(e.target.value)} />
+          <Button label="Prediction" onClick={handlePredict} />
         </div>
         {prediction && (
           <div className={styles.predictionResult}>
@@ -65,7 +65,6 @@ export const DisasterForecast = () => {
                 <p>Disaster Type: {prediction['Disaster Type']}</p>
                 <p>Severity: {prediction['Severity']}</p>
                 <p>Nearest Shelter Distance (km): {prediction['Nearest Shelter_km']}</p>
-                {/* Display Additional Information */}
               </>
             )}
           </div>
@@ -88,7 +87,6 @@ export const DisasterForecast = () => {
                       <p>Disaster Type: {forecast['Disaster Type']}</p>
                       <p>Severity: {forecast['Severity']}</p>
                       <p>Nearest Shelter Distance (km): {forecast['Nearest Shelter_km']}</p>
-                      {/* Display Additional Information */}
                     </>
                   )}
                   <hr />
@@ -101,11 +99,7 @@ export const DisasterForecast = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DisasterForecast;
-
-
-
-
+export default DisasterForecast

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import styles from './EnvironmentalFloodDamage.scss';
 import { Button, ImagePicker, Input, Progress, Select } from '../../components';
 import { useQuery } from '../../hooks';
 import { getImageFromFile } from '../../utils';
 import { calculateEnvironmentalDamagePercentage, getEnvironmentalDamagePercentage } from '../../services/environmental.assessment.service';
 import moment from 'moment/moment'
+import styles from './EnvironmentalFloodDamage.module.scss';
 
 export const EnvironmentalFloodDamage = () => {
   const [image, setImage] = useState();
