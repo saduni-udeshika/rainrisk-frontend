@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import styles from './EnvironmentalLandslideDamage.scss';
 import { Button, ImagePicker, Input, Progress, Select } from '../../components';
 import { useQuery } from '../../hooks';
 import { getImageFromFile } from '../../utils';
 import { calculateEnvironmentalLandslideDamagePercentage, getEnvironmentalLandslideDamagePercentage } from '../../services/environmental.landslide.assessment.service';
 import moment from 'moment/moment'
+import styles from './EnvironmentalLandslideDamage.module.scss';
 
 export const EnvironmentalLandslideDamage = () => {
   const [image, setImage] = useState();

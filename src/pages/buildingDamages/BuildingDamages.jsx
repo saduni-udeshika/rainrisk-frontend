@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import styles from './BuildingDamages.module.scss'
 import { Button, ImagePicker, Input, Progress, Select } from '../../components'
 import { useQuery } from '../../hooks'
 import { getImageFromFile } from '../../utils'
 import { calculateDamagePercentage, getAssessed } from '../../services/damage.assessment.service'
 import moment from 'moment/moment'
+import styles from './BuildingDamages.module.scss'
 
 export const BuildingDamages = () => {
   const [preDisasterImage, setPreDisasterImage] = useState()
