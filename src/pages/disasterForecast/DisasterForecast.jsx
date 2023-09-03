@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { disasterForecast, getDisasterForecasts } from '../../services/disaster.forecast.service'
-import styles from './DisasterForecast.module.scss'
 import { Button, Input, Table } from '../../components'
+import styles from './DisasterForecast.module.scss'
 
 export const DisasterForecast = () => {
   const [date, setDate] = useState('')
