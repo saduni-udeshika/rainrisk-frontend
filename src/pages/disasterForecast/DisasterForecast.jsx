@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { disasterForecast, getDisasterForecasts } from '../../services/disaster.forecast.service'
 import styles from './DisasterForecast.module.scss'
-import { Button, Input } from '../../components'
+import { Button, Input, Table } from '../../components'
 
 export const DisasterForecast = () => {
   const [date, setDate] = useState('')
@@ -74,23 +74,28 @@ export const DisasterForecast = () => {
           {forecasts.length > 0 ? (
             <ul>
               {forecasts.map((forecast, index) => (
-                <li key={index}>
-                  <p>Location: {forecast.Location}</p>
-                  <p>Disaster Occurrence: {forecast['Disaster Occurrence']}</p>
-                  <p>Disaster Date: {forecast['Disaster Date']}</p>
-                  <p>Humidity Day (%): {forecast['Humidity Day (%)']}</p>
-                  <p>Rainfalls (mm): {forecast['Rainfalls (mm)']}</p>
-                  <p>Temperature Max (°C): {forecast['Temperature Max (°C)']}</p>
-                  <p>Wind Speed (km/h): {forecast['Wind Speed (km/h)']}</p>
-                  {forecast['Disaster Occurrence'] === 'Yes' && (
-                    <>
-                      <p>Disaster Type: {forecast['Disaster Type']}</p>
-                      <p>Severity: {forecast['Severity']}</p>
-                      <p>Nearest Shelter Distance (km): {forecast['Nearest Shelter_km']}</p>
-                    </>
-                  )}
-                  <hr />
-                </li>
+                <Table
+                key={index}
+                label={`Forecast for ${forecast.Location} - ${forecast['Disaster Date']}`}
+                headers={['Attribute', 'Value']}
+                data={[
+                  ['Location', forecast.Location],
+                  ['Disaster Occurrence', forecast['Disaster Occurrence']],
+                  ['Disaster Date', forecast['Disaster Date']],
+                  ['Humidity Day (%)', forecast['Humidity Day (%)']],
+                  ['Rainfalls (mm)', forecast['Rainfalls (mm)']],
+                  ['Temperature Max (°C)', forecast['Temperature Max (°C)']],
+                  ['Wind Speed (km/h)', forecast['Wind Speed (km/h)']],
+                  ...(forecast['Disaster Occurrence'] === 'Yes'
+                    ? [
+                        ['Disaster Type', forecast['Disaster Type']],
+                        ['Severity', forecast['Severity']],
+                        ['Nearest Shelter Distance (km)', forecast['Nearest Shelter_km']],
+                      ]
+                    : []),
+                ]}
+                
+              />
               ))}
             </ul>
           ) : (
