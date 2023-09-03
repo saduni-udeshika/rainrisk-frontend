@@ -1,5 +1,5 @@
 import React from 'react'
-import { BuildingDamages, CheckDamaged, Home, EnvironmentalFloodDamage, EnvironmentalLandslideDamage, DisasterForecast } from '../pages'
+import { BuildingDamages, CheckDamaged, Home, DisasterForecast, EnvironmentalDamage } from '../pages'
 
 export const Routes = [
   {
@@ -18,14 +18,9 @@ export const Routes = [
     component: () => <CheckDamaged />,
   },
   {
-    name: 'Environment Flood Damage',
-    path: '/environment-flood-damage',
-    component: () => <EnvironmentalFloodDamage />,
-  },
-  {
-    name: 'Environment Landslide Damage',
-    path: '/environment-landslide-damage',
-    component: () => <EnvironmentalLandslideDamage />,
+    name: 'Assess Risk',
+    path: '/assess-risk',
+    component: () => <EnvironmentalDamage />,
   },
   {
     name: 'Disaster Forecast',
