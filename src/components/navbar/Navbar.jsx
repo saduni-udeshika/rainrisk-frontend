@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import styles from './Navbar.module.scss'
 
 export const Navbar = () => {
@@ -16,7 +18,7 @@ export const Navbar = () => {
           window.location.reload()
         }}
       >
-        Logout
+      <FontAwesomeIcon icon={faSignOutAlt} />
       </div>
     </div>
   )

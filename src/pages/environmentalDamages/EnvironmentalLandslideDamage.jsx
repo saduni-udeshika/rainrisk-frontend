@@ -104,12 +104,12 @@ export const EnvironmentalLandslideDamage = () => {
             <div className={styles.checkedCard} key={index}>
               <div className={styles.detailsContainer}>
                 <div className={styles.type}>
-                  <strong>Disaster Type:</strong> {disasterOptions.find((e) => e.value === data.disaster_type)?.text || 'Unknown Disaster Type'}
+                  {disasterOptions.find((e) => e.value === data.disaster_type)?.text || 'Unknown Disaster Type'}
                 </div>
-                <div className={styles.location}><strong>Location:</strong> {data.location}</div>
-                <div className={styles.date}><strong>Date:</strong> {moment(data.date).format('DD/MM/YYYY')}</div>
+                <div className={styles.location}>{data.location}</div>
+                <div className={styles.date}>{moment(data.date).format('DD/MM/YYYY')}</div>
               </div>
-              <div className={styles.percentage}><strong>Percentage:</strong> {data.percentage_damage}%</div>
+              <div className={styles.percentage}>{data.percentage_damage}%</div>
             </div>
           ))}
       </div>

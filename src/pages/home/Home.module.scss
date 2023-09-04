@@ -4,3 +4,17 @@
   color: #666666;
   font-weight: 600;
 }
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin: 20px 10px;
+}
+
+.roundedCorner {
+  border-radius: 10px;
+  margin: 10px;
+  height: 400px;
+}
