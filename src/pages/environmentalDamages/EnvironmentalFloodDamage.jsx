@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, ImagePicker, Input, Progress, Select } from '../../components';
 import { useQuery } from '../../hooks';
 import { getImageFromFile } from '../../utils';
 import { calculateEnvironmentalDamagePercentage, getEnvironmentalDamagePercentage } from '../../services/environmental.assessment.service';
-import moment from 'moment/moment'
+import moment from 'moment/moment';
 import styles from './EnvironmentalFloodDamage.module.scss';
 
 export const EnvironmentalFloodDamage = () => {
@@ -11,22 +11,21 @@ export const EnvironmentalFloodDamage = () => {
   const [selectedDisasterType, setSelectedDisasterType] = useState('flood');
   const [location, setLocation] = useState('');
   const [date, setDate] = useState('');
-  const { isLoading: isAssessDamageLoading, call: callEnvironmentalDamage } =
-    useQuery(calculateEnvironmentalDamagePercentage)
+  const { isLoading: isAssessDamageLoading, call: callEnvironmentalDamage } = useQuery(calculateEnvironmentalDamagePercentage);
   const {
     isLoading: isLoadingAssessed,
     call: callGetEnvironmentalDamagePercentage,
     response: assessedResponse,
-  } = useQuery(getEnvironmentalDamagePercentage)
-  const [responsePercentage, setResponsePercentage] = useState()
+  } = useQuery(getEnvironmentalDamagePercentage);
+  const [responsePercentage, setResponsePercentage] = useState();
 
   const handleDisasterTypeChange = (e) => {
-    setSelectedDisasterType(e.target.value)
-  }
+    setSelectedDisasterType(e.target.value);
+  };
 
   useEffect(() => {
-    callGetEnvironmentalDamagePercentage()
-  }, [])
+    callGetEnvironmentalDamagePercentage();
+  }, []);
 
   const disasterOptions = [
     { value: 'landslides', text: 'Landslides' },
@@ -44,8 +43,8 @@ export const EnvironmentalFloodDamage = () => {
 
   const resetInputs = () => {
     setImage(undefined);
-    setSelectedDisasterType('flood'); 
-    setLocation(''); 
+    setSelectedDisasterType('flood');
+    setLocation('');
     setDate('');
   };
 
@@ -54,18 +53,21 @@ export const EnvironmentalFloodDamage = () => {
       alert('Please fill in all required fields.');
       return;
     }
-  
+
     const { response } = await callEnvironmentalDamage(
       image.file,
       selectedDisasterType,
       location,
       date
     );
-  
+
     if (response) {
       setResponsePercentage(response);
       resetInputs();
       await callGetEnvironmentalDamagePercentage();
+
+      // Reload the page after handling the assessment
+      window.location.reload();
     } else {
       alert('An error occurred while calculating the percentage!');
     }
@@ -101,12 +103,12 @@ export const EnvironmentalFloodDamage = () => {
             <div className={styles.checkedCard} key={index}>
               <div className={styles.detailsContainer}>
                 <div className={styles.type}>
-                  <strong>Disaster Type:</strong> {disasterOptions.find((e) => e.value === data.disaster_type)?.text || 'Unknown Disaster Type'}
+                  {disasterOptions.find((e) => e.value === data.disaster_type)?.text || 'Unknown Disaster Type'}
                 </div>
-                <div className={styles.location}><strong>Location:</strong> {data.location}</div>
-                <div className={styles.date}><strong>Date:</strong> {moment(data.date).format('DD/MM/YYYY')}</div>
+                <div className={styles.location}> {data.location}</div>
+                <div className={styles.date}>{moment(data.date).format('DD/MM/YYYY')}</div>
               </div>
-              <div className={styles.percentage}><strong>Percentage:</strong> {data.damage_percentage}%</div>
+              <div className={styles.percentage}> {data.percentage_damage}%</div>
             </div>
           ))}
       </div>
@@ -121,5 +123,6 @@ export const EnvironmentalFloodDamage = () => {
       )}
       <Progress showProgress={[isAssessDamageLoading, isLoadingAssessed]} />
     </div>
-  )
-}
+  );
+};
+

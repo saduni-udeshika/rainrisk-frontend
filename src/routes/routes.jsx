@@ -1,5 +1,7 @@
 import React from 'react'
 import { BuildingDamages, CheckDamaged, Home, DisasterForecast, EnvironmentalDamage, HumanitarianRisk } from '../pages'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBuilding } from '@fortawesome/free-solid-svg-icons';
 
 export const Routes = [
   {
@@ -8,7 +10,7 @@ export const Routes = [
     component: () => <Home />,
   },
   {
-    name: 'Assess Damage',
+    name: 'Building Damage',
     path: '/assess-damage',
     component: () => <BuildingDamages />,
   },
@@ -16,9 +18,10 @@ export const Routes = [
     name: 'Check Damaged',
     path: '/check-damaged',
     component: () => <CheckDamaged />,
+    icon: <FontAwesomeIcon icon={faBuilding} />,
   },
   {
-    name: 'Assess Risk',
+    name: 'Environment Risk',
     path: '/assess-risk',
     component: () => <EnvironmentalDamage />,
   },
