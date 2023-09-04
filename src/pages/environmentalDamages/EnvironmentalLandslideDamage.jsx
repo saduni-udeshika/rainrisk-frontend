@@ -106,7 +106,7 @@ export const EnvironmentalLandslideDamage = () => {
                 <div className={styles.location}><strong>Location:</strong> {data.location}</div>
                 <div className={styles.date}><strong>Date:</strong> {moment(data.date).format('DD/MM/YYYY')}</div>
               </div>
-              <div className={styles.percentage}><strong>Percentage:</strong> {data.damage_percentage}%</div>
+              <div className={styles.percentage}><strong>Percentage:</strong> {data.percentage_damage}%</div>
             </div>
           ))}
       </div>
