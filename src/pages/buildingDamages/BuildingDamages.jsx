@@ -83,7 +83,7 @@ export const BuildingDamages = () => {
     <div className={styles.buildingDamages}>
       <div className={styles.leftSection}>
         <div className={styles.assessForm}>
-          <div className={styles.assessedHeader}>Assess Damage</div>
+          <div className={styles.assessedHeader}>Assess Building Damage</div>
           <div className={styles.imagePickerContainer}>
             <ImagePicker
               label="Select pre-disaster image"
@@ -104,7 +104,7 @@ export const BuildingDamages = () => {
           />
           <Input label="Location" onChange={(e) => setLocation(e.target.value)} />
           <Input type="date" label="Date" onChange={(e) => setDate(e.target.value)} />
-          <Button label="Assess Damage" expand onClick={handleAssessDamageClick} />
+          <Button label="Assess Building Damage" expand onClick={handleAssessDamageClick} />
         </div>
       </div>
       <div className={styles.rightSection}>
