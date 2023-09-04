@@ -1,46 +1,82 @@
-import React, { useState, useEffect } from 'react'
-import { disasterForecast, getDisasterForecasts } from '../../services/disaster.forecast.service'
-import { Button, Input, Table } from '../../components'
-import styles from './DisasterForecast.module.scss'
+import React, { useState, useEffect } from 'react';
+import { disasterForecast, getDisasterForecasts } from '../../services/disaster.forecast.service';
+import { Button, Input, Table } from '../../components';
+import styles from './DisasterForecast.module.scss';
+
 
 export const DisasterForecast = () => {
-  const [date, setDate] = useState('')
-  const [location, setLocation] = useState('')
-  const [prediction, setPrediction] = useState('')
-  const [forecasts, setForecasts] = useState([])
+  const [date, setDate] = useState('');
+  const [location, setLocation] = useState('');
+  const [prediction, setPrediction] = useState('');
+  const [forecasts, setForecasts] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    fetchForecasts()
-  }, [])
+    fetchForecasts();
+  }, []);
 
   const fetchForecasts = async () => {
     try {
-      const response = await getDisasterForecasts()
-      setForecasts(response.data)
+      const response = await getDisasterForecasts();
+      setForecasts(response.data);
     } catch (error) {
-      console.error('Error fetching disaster forecasts:', error)
+      console.error('Error fetching disaster forecasts:', error);
     }
-  }
+  };
 
   const handlePredict = async () => {
     if (location && date) {
       try {
-        const response = await disasterForecast(location, date)
-        setPrediction(response.data)
+        const response = await disasterForecast(location, date);
+        setPrediction(response.data);
 
         // Clear the input fields after successful prediction
-        clearInputs()
+        clearInputs();
+
+        // Reload the page after handling the prediction
+        window.location.reload();
       } catch (error) {
-        console.error('Error predicting disaster:', error)
+        console.error('Error predicting disaster:', error);
       }
     }
-  }
+  };
+
+  const handleClosePopup = () => {
+    // Close the popup
+    setShowPopup(false);
+  };
 
   const clearInputs = () => {
-    setDate('')
-    setLocation('')
-    setPrediction('')
-  }
+    setDate('');
+    setLocation('');
+    setPrediction('');
+  };
+
+  // Create an array to store the transposed data for the forecasts
+  const forecastTableData = [];
+
+  // Determine the unique attributes across all forecasts
+  const allAttributes = new Set();
+  forecasts.forEach((forecast) => {
+    Object.keys(forecast).forEach((key) => {
+      allAttributes.add(key);
+    });
+  });
+
+  // Filter out the "Attribute" column
+  allAttributes.delete('Attribute');
+
+  // Add the headers as the first row
+  forecastTableData.push([...allAttributes]);
+
+  // Add forecast data as rows
+  forecasts.forEach((forecast) => {
+    const row = [];
+    allAttributes.forEach((attribute) => {
+      row.push(forecast[attribute] || '');
+    });
+    forecastTableData.push(row);
+  });
 
   return (
     <div className={styles.disasterForecast}>
@@ -71,40 +107,16 @@ export const DisasterForecast = () => {
         )}
         <div className={styles.forecastsList}>
           <h3>Disaster Forecasts:</h3>
-          {forecasts.length > 0 ? (
-            <ul>
-              {forecasts.map((forecast, index) => (
-                <Table
-                key={index}
-                label={`Forecast for ${forecast.Location} - ${forecast['Disaster Date']}`}
-                headers={['Attribute', 'Value']}
-                data={[
-                  ['Location', forecast.Location],
-                  ['Disaster Occurrence', forecast['Disaster Occurrence']],
-                  ['Disaster Date', forecast['Disaster Date']],
-                  ['Humidity Day (%)', forecast['Humidity Day (%)']],
-                  ['Rainfalls (mm)', forecast['Rainfalls (mm)']],
-                  ['Temperature Max (°C)', forecast['Temperature Max (°C)']],
-                  ['Wind Speed (km/h)', forecast['Wind Speed (km/h)']],
-                  ...(forecast['Disaster Occurrence'] === 'Yes'
-                    ? [
-                        ['Disaster Type', forecast['Disaster Type']],
-                        ['Severity', forecast['Severity']],
-                        ['Nearest Shelter Distance (km)', forecast['Nearest Shelter_km']],
-                      ]
-                    : []),
-                ]}
-                
-              />
-              ))}
-            </ul>
+          {forecastTableData.length > 0 ? (
+            <Table label="All Forecasts" headers={forecastTableData[0]} data={forecastTableData.slice(1)} />
           ) : (
             <p>No disaster forecasts available.</p>
           )}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DisasterForecast
+export default DisasterForecast;
+

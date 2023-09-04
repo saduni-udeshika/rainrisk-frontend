@@ -6,6 +6,9 @@ export const EnvironmentalDamage = () => {
   return (
     <div>
         <EnvironmentalFloodDamage />
+        <br></br>
+        <hr></hr>
+        <br></br>
         <EnvironmentalLandslideDamage />
     </div>
   )
