@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, ImagePicker, Input, Progress, Select } from '../../components';
 import { useQuery } from '../../hooks';
 import { getImageFromFile } from '../../utils';
 import { calculateEnvironmentalLandslideDamagePercentage, getEnvironmentalLandslideDamagePercentage } from '../../services/environmental.landslide.assessment.service';
-import moment from 'moment/moment'
+import moment from 'moment/moment';
 import styles from './EnvironmentalLandslideDamage.module.scss';
 
 export const EnvironmentalLandslideDamage = () => {
   const [image, setImage] = useState();
-  const [selectedDisasterType, setSelectedDisasterType] = useState('flood');
+  const [selectedDisasterType, setSelectedDisasterType] = useState('landslide');
   const [location, setLocation] = useState('');
   const [date, setDate] = useState('');
   const { isLoading: isAssessDamageLoading, call: callEnvironmentalDamage } =
@@ -29,7 +29,7 @@ export const EnvironmentalLandslideDamage = () => {
   }, [])
 
   const disasterOptions = [
-    { value: 'landslides', text: 'Landslides' },
+    { value: 'landslide', text: 'Landslide' },
     { value: 'flood', text: 'Flood' },
   ];
 
@@ -66,6 +66,9 @@ export const EnvironmentalLandslideDamage = () => {
       setResponsePercentage(response);
       resetInputs();
       await callGetEnvironmentalDamagePercentage();
+
+      // Reload the page after handling the assessment
+      window.location.reload();
     } else {
       alert('An error occurred while calculating the percentage!');
     }
@@ -121,5 +124,5 @@ export const EnvironmentalLandslideDamage = () => {
       )}
       <Progress showProgress={[isAssessDamageLoading, isLoadingAssessed]} />
     </div>
-  )
-}
+  );
+};
