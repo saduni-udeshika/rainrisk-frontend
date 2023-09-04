@@ -1,5 +1,5 @@
 import React from 'react'
-import { BuildingDamages, CheckDamaged, Home, DisasterForecast, EnvironmentalDamage } from '../pages'
+import { BuildingDamages, CheckDamaged, Home, DisasterForecast, EnvironmentalDamage, HumanitarianRisk } from '../pages'
 
 export const Routes = [
   {
@@ -30,6 +30,6 @@ export const Routes = [
   {
     name: 'Humanitarian Risk',
     path: '/humanitarian-risk',
-    component: () => <div />,
+    component: () => <HumanitarianRisk />,
   }
 ]
