@@ -1,5 +1,5 @@
 import React from 'react'
-import { BuildingDamages, CheckDamaged, Home, DisasterForecast, EnvironmentalDamage, HumanitarianRisk } from '../pages'
+import { BuildingDamages, CheckDamaged, Home, DisasterForecast, EnvironmentalDamage, HumanitarianRisk, EmbeddedDashboard } from '../pages'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBuilding } from '@fortawesome/free-solid-svg-icons';
 
@@ -34,5 +34,10 @@ export const Routes = [
     name: 'Humanitarian Risk',
     path: '/humanitarian-risk',
     component: () => <HumanitarianRisk />,
+  },
+  {
+    name: 'Dashboard',
+    path: '/dashboard',
+    component: () => <EmbeddedDashboard />
   }
 ]
