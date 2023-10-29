@@ -127,7 +127,7 @@ export const BuildingDamages = () => {
         <div className={styles.overlayContainer} onClick={() => setResponsePercentage(undefined)}>
           <div className={styles.overlay} onClick={(e) => e.stopPropagation()}>
             <div className={styles.percentageHeader}>Damage Percentage</div>
-            <div className={styles.overlayPercentage}>{responsePercentage}%</div>
+            <div className={styles.overlayPercentage}>{responsePercentage.damage_percentage}%</div>
             <Button label="Close" expand onClick={() => setResponsePercentage(undefined)} />
           </div>
         </div>

@@ -11,8 +11,7 @@ export const EnvironmentalLandslideDamage = () => {
   const [selectedDisasterType, setSelectedDisasterType] = useState('landslide');
   const [location, setLocation] = useState('');
   const [date, setDate] = useState('');
-  const { isLoading: isAssessDamageLoading, call: callEnvironmentalDamage } =
-    useQuery(calculateEnvironmentalLandslideDamagePercentage)
+  const { isLoading: isAssessDamageLoading, call: callEnvironmentalDamage } = useQuery(calculateEnvironmentalLandslideDamagePercentage)
   const {
     isLoading: isLoadingAssessed,
     call: callGetEnvironmentalDamagePercentage,
@@ -31,6 +30,9 @@ export const EnvironmentalLandslideDamage = () => {
   const disasterOptions = [
     { value: 'landslide', text: 'Landslide' },
     { value: 'flood', text: 'Flood' },
+    { value: 'drought', text: 'Drought' },
+    { value: 'lands1ide', text: 'Lands1ide' },
+    { value: 'coastal-erosion', text: 'Coastal-Erosion' },
   ];
 
   const onSelectImage = async (e) => {
@@ -50,18 +52,40 @@ export const EnvironmentalLandslideDamage = () => {
   };
 
   const handleEnvironmentalDamage = async () => {
-    if (!image || !selectedDisasterType || !location || !date) {
-      alert('Please fill in all required fields.');
+    if (!image) {
+      alert('Please select a disaster image.');
       return;
     }
-  
+
+    if (!image.file) {
+      alert('The selected file is not an image.');
+      return;
+    }
+
+    if (selectedDisasterType !== 'landslide') {
+      alert('Landslide images are required for damage assessment.');
+      return;
+    }
+
+    if (!location) {
+      alert('Please enter a location.');
+      return;
+    }
+
+    if (!date) {
+      alert('Please select a date.');
+      return;
+    }
+
+    // If all required fields are filled out, the selected file is a landslide image, and the disaster type is 'landslide',
+    // proceed with the assessment.
     const { response } = await callEnvironmentalDamage(
       image.file,
       selectedDisasterType,
       location,
       date
     );
-  
+
     if (response) {
       setResponsePercentage(response);
       resetInputs();
