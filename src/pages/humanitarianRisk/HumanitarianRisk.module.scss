@@ -1,0 +1,79 @@
+@import '../../variables.scss';
+
+.floatContainer {
+    border: 3px solid #fff;
+    padding: 20px;
+}
+
+.floatChild {
+    width: 50%;
+    float: left;
+    padding: 20px;
+    border: 2px solid rgb(28, 10, 89);
+}  
+
+.floatChild.green {
+    margin-right: 20px;
+}
+
+.floatChild.blue {
+    margin-right: 20px;
+}
+
+.submitButton {
+    padding: 10px 20px;
+    background-color: #0b325b;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.searchGroup {
+    margin-left: 50px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+
+    button {
+        margin-left: 40px;
+        padding: 7px 50px;
+        background-color: #183657;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    input {
+        padding: 5px 40px;
+    }
+}
+
+.inputField {
+
+    margin: 5px;
+    padding: 5px 50px;
+}
+
+.formHeader {
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.checkedCard {
+    border: 1px solid #bfbfbf;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.detailsContainer {
+    flex-grow: 1;
+}
+
+.postContent {
+    height: inherit;
+}
+
