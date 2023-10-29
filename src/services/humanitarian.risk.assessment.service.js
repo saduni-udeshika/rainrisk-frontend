@@ -63,4 +63,13 @@ export const getAdaderanaNews = async () => {
 export const getFloodlistPosts = async () => {
     return http.withToken.get('get-news');
 };
+
+
+export const postQuery = async (
+  user_query
+) => {
+  const formData = new FormData()
+  formData.append('user_query', user_query)
   
+  return http.withToken.post(`adaderana_scrape`, formData);
+};
