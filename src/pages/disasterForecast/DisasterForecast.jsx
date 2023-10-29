@@ -3,7 +3,6 @@ import { disasterForecast, getDisasterForecasts } from '../../services/disaster.
 import { Button, Input, Table } from '../../components';
 import styles from './DisasterForecast.module.scss';
 
-
 export const DisasterForecast = () => {
   const [date, setDate] = useState('');
   const [location, setLocation] = useState('');
@@ -25,21 +24,54 @@ export const DisasterForecast = () => {
   };
 
   const handlePredict = async () => {
-    if (location && date) {
-      try {
-        const response = await disasterForecast(location, date);
-        setPrediction(response.data);
-
-        // Clear the input fields after successful prediction
-        clearInputs();
-
-        // Reload the page after handling the prediction
-        window.location.reload();
-      } catch (error) {
-        console.error('Error predicting disaster:', error);
+    const currentDate = new Date();
+    const selectedDate = new Date(date);
+    const allowedLocations = [
+      'Eheliyagoda', 'Kuruwita', 'Kiriella', 'Rathnapura', 'Elapatha', 'Ayagama', 'Imbulpe',
+      'Opanayaka', 'Pelmadulla', 'Nivithigala', 'Kalawana', 'Balangoda', 'Weligepola',
+      'Godakawela', 'Kahawaththa', 'Embilipitiya', 'Kolonna', 'Kalthota', 'Kegalle',
+      'Ambepussa', 'Aranayaka', 'Bulathkohupitiya', 'Dehiovita', 'Deraniyagala', 'Galigamuwa',
+      'Hemmathagama', 'Karawanella', 'Kitulgala', 'Kotiyakumbura', 'Mawanella', 'Rambukkana',
+      'Ruwanwella', 'Thalgaspitiya', 'Warakapola', 'Yatiyanthota', 'Ganthuna', 'Akuressa',
+      'Athuraliya', 'Devinuwara', 'Dickwella', 'Hakmana', 'Kamburupitiya', 'Kirinda Puhulwella',
+      'Kotapola', 'Malimbada', 'Matara', 'Mulatiyana', 'Pasgoda', 'Pitabeddara', 'Thihagoda',
+      'Weligama', 'Welipitiya', 'Ambalantota', 'Angunakolapelessa', 'Beliatta', 'Hambantota',
+      'Katuwana', 'Lunugamvehera', 'Okewela', 'Sooriyawewa', 'Tangalle', 'Thissamaharama',
+      'Walasmulla', 'Weeraketiya', 'Akmeemana', 'Ambalangoda', 'Baddegama', 'Balapitiya',
+      'Benthota', 'Bope-Poddala', 'Elpitiya', 'Galle', 'Gonapinuwala', 'Habaraduwa',
+      'Hikkaduwa', 'Imaduwa', 'Karandeniya', 'Nagoda', 'Neluwa', 'Niyagama', 'Thawalama',
+      'Welivitiya-Divithura', 'Yakkalamulla'
+    ];
+  
+    // Calculate the date one year from the current date
+    const oneYearFromNow = new Date(currentDate);
+    oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+  
+    if (location && date && selectedDate >= currentDate && selectedDate <= oneYearFromNow) {
+      if (allowedLocations.includes(location)) {
+        try {
+          const response = await disasterForecast(location, date);
+          setPrediction(response.data);
+  
+          // Clear the input fields after successful prediction
+          clearInputs();
+  
+          // Reload the page after handling the prediction
+          window.location.reload();
+        } catch (error) {
+          console.error('Error predicting disaster:', error);
+        }
+      } else {
+        // Location is not in the allowed list
+        alert('Please enter a valid location from Kegalle, Ratnapura, Galle, Hambantota, Matara.');
       }
+    } else {
+      // Date or location is missing or not within the allowed range
+      alert('Please enter a valid date within the current date and up to one year in the future.');
     }
   };
+  
+  
 
   const handleClosePopup = () => {
     // Close the popup
@@ -50,8 +82,7 @@ export const DisasterForecast = () => {
     setDate('');
     setLocation('');
     setPrediction('');
-  };
-
+  }
   // Create an array to store the transposed data for the forecasts
   const forecastTableData = [];
 

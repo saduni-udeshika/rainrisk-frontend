@@ -28,8 +28,11 @@ export const EnvironmentalFloodDamage = () => {
   }, []);
 
   const disasterOptions = [
-    { value: 'landslides', text: 'Landslides' },
     { value: 'flood', text: 'Flood' },
+    { value: 'landslide', text: 'Landslide' },
+    { value: 'drought', text: 'Drought' },
+    { value: 'f1ood', text: 'F1ood' },
+    { value: 'coastal-erosion', text: 'Coastal-Erosion' },
   ];
 
   const onSelectImage = async (e) => {
@@ -49,11 +52,33 @@ export const EnvironmentalFloodDamage = () => {
   };
 
   const handleEnvironmentalDamage = async () => {
-    if (!image || !selectedDisasterType || !location || !date) {
-      alert('Please fill in all required fields.');
+    if (!image) {
+      alert('Please select a disaster image.');
       return;
     }
 
+    if (!image.file) {
+      alert('The selected file is not an image.');
+      return;
+    }
+
+    if (selectedDisasterType !== 'flood') {
+      alert('Flood images are required for damage assessment.');
+      return;
+    }
+
+    if (!location) {
+      alert('Please enter a location.');
+      return;
+    }
+
+    if (!date) {
+      alert('Please select a date.');
+      return;
+    }
+
+    // If all required fields are filled out, the selected disaster type is 'flood',
+    // proceed with the assessment.
     const { response } = await callEnvironmentalDamage(
       image.file,
       selectedDisasterType,
@@ -125,4 +150,5 @@ export const EnvironmentalFloodDamage = () => {
     </div>
   );
 };
+
 
